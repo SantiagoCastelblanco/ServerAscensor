@@ -1,19 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+import presentacion.Modelo;
 
-/**
- *
- * @author Santiago
- */
 public class Launcher {
-
-    /**
-     * @param args the command line arguments
-     */
+    
+    private Modelo miApp;
+    
+    public Launcher(){
+        miApp = new Modelo();
+        miApp.iniciar();
+    }
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        new Launcher();
     }
     
 }
