@@ -19,6 +19,7 @@ public class Modelo {
         
         getVentana().setSize(800,800);
         getVentana().setVisible(true);
+        getVentana().setResizable(false);
     }
     
     public Vista getVentana(){
