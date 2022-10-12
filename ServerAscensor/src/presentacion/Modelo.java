@@ -1,6 +1,7 @@
 
 package presentacion;
 
+import logica.AscensorLogica;
 import logica.ServerSocket;
 
 public class Modelo {
@@ -19,8 +20,11 @@ public class Modelo {
         getVentana().setSize(800,800);
         getVentana().setVisible(true);
         getVentana().setResizable(false);
-        ServerSocket ascensor = new ServerSocket();
-        /*ascensor.subirPiso();
+        AscensorLogica ascensor = new AscensorLogica();
+        System.out.println(ascensor.getPisoActual());
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        System.out.println(ascensor.getPisoActual());
         ascensor.subirPiso();
         ascensor.subirPiso();
         ascensor.subirPiso();
@@ -28,7 +32,11 @@ public class Modelo {
         ascensor.subirPiso();
         ascensor.subirPiso();
         ascensor.subirPiso();
-        ascensor.subirPiso();*/
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        System.out.println(ascensor.getPisoActual());
     }
     
     public Vista getVentana(){
