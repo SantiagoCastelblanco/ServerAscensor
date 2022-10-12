@@ -11,6 +11,9 @@ public class AscensorLogica {
     
     public AscensorLogica(){
         listaPisos = new Pisos[NUM_PISOS];
+        for (int i = 0; i < listaPisos.length; i++) {
+            listaPisos[i] = new Pisos();
+        }
         pisoActual=0;
     }
     
