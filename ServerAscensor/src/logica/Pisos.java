@@ -1,13 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package logica;
 
-/**
- *
- * @author Estudiantes
- */
 public class Pisos {
     
+    private boolean pisoActivo;
+    private String solicitudDePiso;
+    private float cargaDelPiso;
+    private int personasEsperando;
+    
+    public Pisos(){
+        
+    }
+    
+    public void activarPiso(){
+        pisoActivo = true;
+    }
+    
+    public boolean pisoEstaActivo(){
+        return pisoActivo;
+    }
+
+    public void setSolicitudDePiso(String solicitudDePiso) {
+        this.solicitudDePiso = solicitudDePiso;
+    }
+    
+
+    public String getSolicitudDePiso() {
+        return solicitudDePiso;
+    }
 }
