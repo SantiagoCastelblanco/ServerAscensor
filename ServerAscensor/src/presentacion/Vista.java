@@ -14,6 +14,7 @@ public class Vista extends javax.swing.JFrame {
     Vista(Modelo aThis) {
         modelo=aThis;
         initComponents();
+        this.setLocationRelativeTo(null);
         creacionLblPisos();
     }
 

@@ -1,25 +1,34 @@
 
 package presentacion;
 
-import logica.ServidorAscensor;
+import logica.ServerSocket;
 
 public class Modelo {
     
     private Vista ventana;
-    private ServidorAscensor appServidor;
+    private ServerSocket appServidor;
     
-    public ServidorAscensor getAppServidor(){
+    public ServerSocket getAppServidor(){
         if(appServidor ==null){
-            appServidor = new ServidorAscensor();
+            appServidor = new ServerSocket();
         }
         return appServidor;
     }
     
     public void iniciar(){
-        
         getVentana().setSize(800,800);
         getVentana().setVisible(true);
         getVentana().setResizable(false);
+        ServerSocket ascensor = new ServerSocket();
+        /*ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();
+        ascensor.subirPiso();*/
     }
     
     public Vista getVentana(){
