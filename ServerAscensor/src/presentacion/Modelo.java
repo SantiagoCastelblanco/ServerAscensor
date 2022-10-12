@@ -25,18 +25,8 @@ public class Modelo {
         ascensor.subirPiso();
         ascensor.subirPiso();
         System.out.println(ascensor.getPisoActual());
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        System.out.println(ascensor.getPisoActual());
+        ascensor.bajarPiso();
+
     }
     
     public Vista getVentana(){

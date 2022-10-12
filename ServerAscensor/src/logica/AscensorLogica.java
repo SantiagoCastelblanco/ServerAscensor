@@ -22,6 +22,11 @@ public class AscensorLogica {
             pisoActual++;
         }
     }
+    public void bajarPiso(){
+        if(pisoActual>0&&carga<cargaMaxima){
+            pisoActual--;
+        }
+    }
 
     public int getPisoActual() {
         return pisoActual;
