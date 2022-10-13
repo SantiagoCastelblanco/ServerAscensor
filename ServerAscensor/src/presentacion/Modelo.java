@@ -22,10 +22,7 @@ public class Modelo {
         getVentana().setResizable(false);
         AscensorLogica ascensor = new AscensorLogica();
         System.out.println(ascensor.getPisoActual());
-        ascensor.subirPiso();
-        ascensor.subirPiso();
-        System.out.println(ascensor.getPisoActual());
-        ascensor.bajarPiso();
+        ascensor.irPiso(4);
 
     }
     
