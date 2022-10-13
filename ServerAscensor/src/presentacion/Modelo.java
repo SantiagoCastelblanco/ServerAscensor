@@ -23,7 +23,7 @@ public class Modelo {
         AscensorLogica ascensor = new AscensorLogica();
         System.out.println(ascensor.getPisoActual());
         ascensor.irPiso(4);
-
+        
     }
     
     public Vista getVentana(){

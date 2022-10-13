@@ -48,6 +48,22 @@ public class AscensorLogica {
             }//ya esta en el piso
         }// no existe piso
     }
+    
+    public void agregarPeso(float peso){
+        carga+=peso;
+    }
+    
+    public void quitarPeso(float peso){
+        carga-=peso;
+    }
+    
+    public boolean priorizar(){
+        return false;
+    }
+    
+    public float getCarga() {
+        return carga;
+    }
 
     public int getPisoActual() {
         return pisoActual;
