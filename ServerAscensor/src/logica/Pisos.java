@@ -6,7 +6,8 @@ public class Pisos {
     private String solicitudDePiso;
     private float cargaDelPiso;
     private int personasEsperando;
-    private int personas;
+    private boolean solicitaSubida;
+    private boolean solicitaBajada;
     
     public Pisos(){
         
@@ -18,6 +19,24 @@ public class Pisos {
     
     public boolean pisoEstaActivo(){
         return pisoActivo;
+    }
+    
+    public void solicitudPiso(int solicitud, int personas, int destinoPersonas[]){
+        if(solicitud ==1){
+            solicitaSubida = true;
+        }
+        else{
+            solicitaBajada = true;
+        }
+        personasEsperando = personas;
+    }
+
+    public void setSolicitaSubida(boolean solicitaSubida) {
+        this.solicitaSubida = solicitaSubida;
+    }
+
+    public void setSolicitaBajada(boolean solicitaBajada) {
+        this.solicitaBajada = solicitaBajada;
     }
     
 }
