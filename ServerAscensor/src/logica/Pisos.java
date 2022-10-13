@@ -6,6 +6,7 @@ public class Pisos {
     private String solicitudDePiso;
     private float cargaDelPiso;
     private int personasEsperando;
+    private int personas;
     
     public Pisos(){
         
@@ -18,13 +19,5 @@ public class Pisos {
     public boolean pisoEstaActivo(){
         return pisoActivo;
     }
-
-    public void setSolicitudDePiso(String solicitudDePiso) {
-        this.solicitudDePiso = solicitudDePiso;
-    }
     
-
-    public String getSolicitudDePiso() {
-        return solicitudDePiso;
-    }
 }
