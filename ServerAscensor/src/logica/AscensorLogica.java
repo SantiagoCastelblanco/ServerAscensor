@@ -4,12 +4,16 @@ package logica;
 public class AscensorLogica {
     private Pisos[] listaPisos;
     private int pisoActual;//por ahora lo declaro aqui
-    public final int NUM_PISOS = 10;
-    public final int PISOS_SUBTERRANEOS = 3;
-    public final float cargaMaxima = 1000;//kilos
+    public static final int NUM_PISOS = 10;
+    public static final int PISOS_SUBTERRANEOS = 3;
+    public static final float cargaMaxima = 1000;//kilos
     private float carga = 0;
     
+    //0 es quieto, 1 es subiendo, -1 bajando
+    private int estado;
+    
     public AscensorLogica(){
+        estado =0;
         listaPisos = new Pisos[NUM_PISOS];
         for (int i = 0; i < listaPisos.length; i++) {
             listaPisos[i] = new Pisos();
@@ -17,18 +21,21 @@ public class AscensorLogica {
         pisoActual=0;
     }
     
-    public void subirPiso(){
-        if(pisoActual<listaPisos.length-1&&carga<cargaMaxima){
+    public boolean subirPiso(){
+        if(pisoActual<listaPisos.length-1&&carga<cargaMaxima&&estado==1||estado==0){
             pisoActual++;
+            return true;
         }else{
-            //no se mueve el ascensor
+            return false;
         }
     }
-    public void bajarPiso(){
-        if(pisoActual>0&&carga<cargaMaxima){
+    public boolean bajarPiso(){
+        if(pisoActual>0&&carga<cargaMaxima&&estado==-1||estado==0){
+            estado=-1;
             pisoActual--;
+            return true;
         }else{
-            //no se mueve
+            return false;
         }
     }
     public void irPiso(int piso){

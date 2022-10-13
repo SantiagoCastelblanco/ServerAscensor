@@ -189,9 +189,9 @@ public class Vista extends javax.swing.JFrame {
             lblEstadoPisos[i] = new JLabel();
             pnlPisos.add(lblEstadoPisos[i]);
             lblEstadoPisos[i].setBackground(new java.awt.Color(255, 255, 255));
-            lblEstadoPisos[i].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/active-icon.jpg")).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
-            lblEstadoPisos[i].setOpaque(true);
             lblEstadoPisos[i].setBounds(x, y, dimension, dimension);
+            lblEstadoPisos[i].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/inactive-icon.jpg")).getImage().getScaledInstance(lblEstadoPisos[i].getWidth(), lblEstadoPisos[i].getHeight(), Image.SCALE_DEFAULT)));
+            lblEstadoPisos[i].setOpaque(true);
             y+=dimension;
             
         }

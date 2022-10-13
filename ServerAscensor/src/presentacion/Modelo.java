@@ -2,16 +2,16 @@
 package presentacion;
 
 import logica.AscensorLogica;
-import logica.ServerSocket;
+import logica.ServerLogica;
 
 public class Modelo {
     
     private Vista ventana;
-    private ServerSocket appServidor;
+    private ServerLogica appServidor;
     
-    public ServerSocket getAppServidor(){
+    public ServerLogica getAppServidor(){
         if(appServidor ==null){
-            appServidor = new ServerSocket();
+            appServidor = new ServerLogica();
         }
         return appServidor;
     }
