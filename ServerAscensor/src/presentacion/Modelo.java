@@ -2,18 +2,18 @@
 package presentacion;
 
 import logica.AscensorLogica;
-import logica.ServerLogica;
+import logica.AscensorLogica;
 
 public class Modelo {
     
     private Vista ventana;
-    private ServerLogica appServidor;
+    private AscensorLogica appAscensor;
     
-    public ServerLogica getAppServidor(){
-        if(appServidor ==null){
-            appServidor = new ServerLogica();
+    public AscensorLogica getAppServidor(){
+        if(appAscensor ==null){
+            appAscensor = new AscensorLogica();
         }
-        return appServidor;
+        return appAscensor;
     }
     
     public void iniciar(){
@@ -21,9 +21,6 @@ public class Modelo {
         getVentana().setVisible(true);
         getVentana().setResizable(false);
         AscensorLogica ascensor = new AscensorLogica();
-        System.out.println(ascensor.getPisoActual());
-        ascensor.irPiso(4);
-        
     }
     
     public Vista getVentana(){
