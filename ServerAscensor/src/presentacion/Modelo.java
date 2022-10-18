@@ -2,12 +2,13 @@
 package presentacion;
 
 import logica.AscensorLogica;
-import logica.AscensorLogica;
+import logica.SocketPisos;
 
-public class Modelo {
+public class Modelo implements Runnable{
     
     private Vista ventana;
     private AscensorLogica appAscensor;
+    private SocketPisos[] socketsPisos;
     
     public AscensorLogica getAppServidor(){
         if(appAscensor ==null){
@@ -21,6 +22,13 @@ public class Modelo {
         getVentana().setVisible(true);
         getVentana().setResizable(false);
         AscensorLogica ascensor = new AscensorLogica();
+        socketsPisos = new SocketPisos[AscensorLogica.NUM_PISOS];
+        for(int i=0;i<AscensorLogica.NUM_PISOS;i++){
+            socketsPisos[i] = new SocketPisos(i);
+            socketsPisos[i].start();
+            socketsPisos[i].setActivo(true);
+        }
+        run();
     }
     
     public Vista getVentana(){
@@ -28,5 +36,14 @@ public class Modelo {
             ventana = new Vista(this);
         }
         return ventana;
+    }
+
+    @Override
+    public void run() {
+        boolean activo = true;
+        while (activo){
+            for(int i=0;i<AscensorLogica.NUM_PISOS;i++){
+            }
+        }
     }
 }

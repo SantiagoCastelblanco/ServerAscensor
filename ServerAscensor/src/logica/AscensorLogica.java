@@ -1,6 +1,6 @@
 package logica;
 
-public class AscensorLogica implements Runnable{
+public class AscensorLogica{
     
     private Pisos[] listaPisos;
     private int pisoActual;//por ahora lo declaro aqui
@@ -12,15 +12,10 @@ public class AscensorLogica implements Runnable{
      //0 es quieto, 1 es subiendo, -1 bajando
     private int estado;
     
-    //Sub servidores de socket
-    private SocketPisos[] socketsPisos;
-    
     public AscensorLogica(){
         estado =0;
         listaPisos = new Pisos[NUM_PISOS];
         for (int i = 0; i < listaPisos.length; i++) {
-            socketsPisos[i] = new SocketPisos(i);
-            socketsPisos[i].start();
             listaPisos[i] = new Pisos();
         }
         pisoActual=0;
@@ -79,17 +74,5 @@ public class AscensorLogica implements Runnable{
 
     public int getPisoActual() {
         return pisoActual;
-    }
-    
-    @Override
-    public void run() {
-        chequeoPisos();
-    }
-
-    //Metodo encargado de realizar chequeo de los pisos en el programa
-    private void chequeoPisos() {
-        for(int i=0;i<NUM_PISOS;i++){
-            
-        }
     }
 }
