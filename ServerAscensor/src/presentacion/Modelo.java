@@ -1,14 +1,17 @@
 
 package presentacion;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logica.AscensorLogica;
-import logica.SocketPisos;
+import logica.SocketServidor;
 
 public class Modelo implements Runnable{
     
     private Vista ventana;
     private AscensorLogica appAscensor;
-    private SocketPisos[] socketsPisos;
+    private SocketServidor servidorSocket;
     
     public AscensorLogica getAppServidor(){
         if(appAscensor ==null){
@@ -22,12 +25,15 @@ public class Modelo implements Runnable{
         getVentana().setVisible(true);
         getVentana().setResizable(false);
         AscensorLogica ascensor = new AscensorLogica();
-        socketsPisos = new SocketPisos[AscensorLogica.NUM_PISOS];
-        for(int i=0;i<AscensorLogica.NUM_PISOS;i++){
-            socketsPisos[i] = new SocketPisos(i);
-            socketsPisos[i].start();
-            socketsPisos[i].setActivo(true);
+        servidorSocket = new SocketServidor();
+        /*
+        servidorSocket.setActivo(true);
+        try {
+            servidorSocket.escucharCliente();
+        } catch (IOException ex) {
+            Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
         run();
     }
     
@@ -42,8 +48,7 @@ public class Modelo implements Runnable{
     public void run() {
         boolean activo = true;
         while (activo){
-            for(int i=0;i<AscensorLogica.NUM_PISOS;i++){
-            }
+            
         }
     }
 }
