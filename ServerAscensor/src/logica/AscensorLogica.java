@@ -8,12 +8,11 @@ public class AscensorLogica{
     public static final int PISOS_SUBTERRANEOS = 3;
     public static final float cargaMaxima = 1000;//kilos
     private float carga = 0;
-    
      //0 es quieto, 1 es subiendo, -1 bajando
-    private int estado;
+    private int estadoAscensor;
     
     public AscensorLogica(){
-        estado =0;
+        estadoAscensor =0;
         listaPisos = new Pisos[NUM_PISOS];
         for (int i = 0; i < listaPisos.length; i++) {
             listaPisos[i] = new Pisos();
@@ -21,17 +20,22 @@ public class AscensorLogica{
         pisoActual=0;
     }
     
+    public void setActivoPiso(int piso, boolean b){
+        listaPisos[piso].setActivo(b);
+    }
+    
     public boolean subirPiso(){
-        if(pisoActual<listaPisos.length-1&&carga<cargaMaxima&&estado==1||estado==0){
+        if(pisoActual<listaPisos.length-1&&carga<cargaMaxima&&estadoAscensor==1||estadoAscensor==0){
             pisoActual++;
+            estadoAscensor = 1;
             return true;
         }else{
             return false;
         }
     }
     public boolean bajarPiso(){
-        if(pisoActual>0&&carga<cargaMaxima&&estado==-1||estado==0){
-            estado=-1;
+        if(pisoActual>0&&carga<cargaMaxima&&estadoAscensor==-1||estadoAscensor==0){
+            estadoAscensor=-1;
             pisoActual--;
             return true;
         }else{
@@ -74,5 +78,17 @@ public class AscensorLogica{
 
     public int getPisoActual() {
         return pisoActual;
+    }
+
+    public int getEstadoAscensor() {
+        return estadoAscensor;
+    }
+
+    public boolean getActivoPiso(int i) {
+        boolean b = false;
+        if(listaPisos[i]!= null){
+            b = listaPisos[i].getActivo();
+        }
+        return b;
     }
 }

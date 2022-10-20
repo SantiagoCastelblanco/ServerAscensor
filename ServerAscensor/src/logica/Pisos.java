@@ -22,8 +22,12 @@ public class Pisos {
     }
     
     
-    public void activarPiso(){
-        pisoActivo = true;
+    public void setActivo(boolean b){
+        pisoActivo = b;
+    }
+    
+    public boolean getActivo(){
+        return pisoActivo;
     }
     
     public boolean pisoEstaActivo(){
