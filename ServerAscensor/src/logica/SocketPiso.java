@@ -36,6 +36,10 @@ public class SocketPiso extends Thread {
     public DataOutputStream getDatosSalida() {
         return datosSalida;
     }
+    
+    public boolean datosNuevos(){
+        return false;
+    }
 
     public void desconectar() throws IOException {
         //Cerrando para asegurar la nueva conexión 

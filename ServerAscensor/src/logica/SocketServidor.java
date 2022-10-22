@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SocketServidor extends Thread {
+public class SocketServidor {
 
     //Manejadores del socket
     private ServerSocket servidor;
@@ -26,17 +26,19 @@ public class SocketServidor extends Thread {
     public SocketServidor() {
         activo = false;
         listaPisos = new SocketPiso[AscensorLogica.NUM_PISOS];
-    }
-
-    public void run() {
+        try {
+            servidor = new ServerSocket(puerto);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketServidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void escucharCliente() throws IOException {
-        servidor = new ServerSocket(puerto);
         System.out.println("Servidor iniciado");
-        while (activo) {
+        if (activo) {
             //Espera de conexion
             System.out.println("esperando conexion...");
+            servidor.setSoTimeout(50000);
             cliente = servidor.accept();
             SocketPiso sp = new SocketPiso(cliente);
             //logica para agregacion al vector
@@ -50,7 +52,6 @@ public class SocketServidor extends Thread {
                 if (listaPisos[identificador] != null) {
 
                 } else {
-                    activo = false;
                     listaPisos[identificador] = sp;
                 }
             } else {
@@ -66,5 +67,21 @@ public class SocketServidor extends Thread {
             estado = listaPisos[piso].getEstadoSocket();
         }
         return estado;
+    }
+
+    public boolean todosSocketsConectados() {
+        boolean b = true;
+        for (int i = 0; i < AscensorLogica.NUM_PISOS; i++) {
+            if(listaPisos[i]!=null){
+                if(listaPisos[i].getEstadoSocket()==-1){
+                    b = false;
+                }
+            }
+            else{
+                b = false;
+                break;
+            }
+        }
+        return b;
     }
 }

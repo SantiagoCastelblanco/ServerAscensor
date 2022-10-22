@@ -2,6 +2,7 @@
 package presentacion;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.AscensorLogica;
@@ -32,7 +33,6 @@ public class Modelo implements Runnable{
         getVentana().setVisible(true);
         getVentana().setResizable(false);
         getServidorSocket().setActivo(true);
-        getServidorSocket().start();
         run();
     }
     
@@ -47,6 +47,19 @@ public class Modelo implements Runnable{
     public void run() {
         boolean activo = true;
         while (activo){
+            //Siempre escuchamos primero al servidor en caso de que se conecte un nuevo usuario
+            if(!getServidorSocket().todosSocketsConectados()){
+                try {
+                    getServidorSocket().escucharCliente();
+                } catch (IOException ex) {
+                    if(ex instanceof SocketTimeoutException){
+                        System.out.println("50 segundos pasaron");
+                    }
+                    else{
+                        Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }        
             for(int i=0;i<AscensorLogica.NUM_PISOS;i++){
                 int estado = getServidorSocket().getEstadoSocketPiso(i);
                 switch(estado){
