@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SocketPiso extends Thread {
 
@@ -26,7 +28,15 @@ public class SocketPiso extends Thread {
     }
 
     public void run() {
-        
+        actualizarMensajeInterno();
+    }
+    
+    public void actualizarMensajeInterno(){
+        try {
+            datosEntrada.read(mensaje);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public DataInputStream getDatosEntrada() {
@@ -38,7 +48,11 @@ public class SocketPiso extends Thread {
     }
     
     public boolean datosNuevos(){
-        return false;
+        boolean b = false;
+        if(mensaje.length>2){
+            b = true;
+        }
+        return b;
     }
 
     public void desconectar() throws IOException {
@@ -50,11 +64,12 @@ public class SocketPiso extends Thread {
 
     public int getEstadoSocket() {
         int estado =0;
+        System.out.println("Mensaje "+new String(mensaje));
         if(recienCreado){
             estado = 2;
             recienCreado = false;
         }
-        if(mensaje.length!=0){
+        else if(mensaje.length!=0){
             estado=1;
         }
         

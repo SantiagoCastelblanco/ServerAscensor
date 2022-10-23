@@ -53,6 +53,7 @@ public class SocketServidor {
 
                 } else {
                     listaPisos[identificador] = sp;
+                    listaPisos[identificador].run();
                 }
             } else {
                 System.out.println("Identificador de piso incorrecta");
