@@ -197,18 +197,20 @@ public class Vista extends javax.swing.JFrame {
         }
     }
     
-    public void pisoHabilitado(int piso, boolean habilitado){
+    public void cambiarEstadoLblPiso(int piso, boolean habilitado){
         if(habilitado){
             lblPisos[piso].setBackground(new java.awt.Color(233, 255, 233));
-            lblEstadoPisos[piso].setIcon(null);
-            lblEstadoPisos[piso].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/active-icon.jpg")).getImage().getScaledInstance(lblEstadoPisos[piso].getWidth(), lblEstadoPisos[piso].getHeight(), Image.SCALE_DEFAULT)));
+            
         }
         else{
             lblPisos[piso].setBackground(new java.awt.Color(255,51,51));
-            lblEstadoPisos[piso].setIcon(null);
-            lblEstadoPisos[piso].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/inactive-icon.jpg")).getImage().getScaledInstance(lblEstadoPisos[piso].getWidth(), lblEstadoPisos[piso].getHeight(), Image.SCALE_DEFAULT)));
-        
+            
         }
+    }
+    
+    public void cambiarIconoLblPisos(int piso,String nombre){
+        lblEstadoPisos[piso].setIcon(null);
+        lblEstadoPisos[piso].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/"+nombre+"-icon.jpg")).getImage().getScaledInstance(lblEstadoPisos[piso].getWidth(), lblEstadoPisos[piso].getHeight(), Image.SCALE_DEFAULT)));
     }
     
 }

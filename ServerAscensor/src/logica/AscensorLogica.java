@@ -19,8 +19,54 @@ public class AscensorLogica {
         }
         pisoActual = 0;
     }
-    
-    
+
+    public boolean debeSeguirSubiendo() {
+        //El modelo ya habra pedido el estado
+        boolean b = false;
+        //Caso especial para el ultimo piso
+        if (listaPisos[AscensorLogica.NUM_PISOS - 1].getSolicitudDePiso() == -1) {
+            return pisoActual != AscensorLogica.NUM_PISOS - 1;
+        }
+        for (int i = 0; i < AscensorLogica.NUM_PISOS; i++) {
+            //ignoraremos los pisos anteriores
+            if (pisoActual >= i) {
+                switch (listaPisos[i].getSolicitudDePiso()) {
+                    case 1 ->
+                        b = true;
+                    case 2 ->
+                        b = true;
+                }
+                if (b) {
+                    break;
+                }
+            }
+        }
+        return b;
+    }
+
+    public boolean debeSeguirBajando() {
+        //El modelo ya habra pedido el estado
+        boolean b = false;
+        //Caso especial para el primer piso
+        if (listaPisos[0].getSolicitudDePiso() == 1) {
+            return pisoActual != 0;
+        }
+        for (int i = 0; i < AscensorLogica.NUM_PISOS; i++) {
+            //ignoraremos los pisos anteriores
+            if (pisoActual <= i) {
+                switch (listaPisos[i].getSolicitudDePiso()) {
+                    case -1 ->
+                        b = true;
+                    case 2 ->
+                        b = true;
+                }
+                if (b) {
+                    break;
+                }
+            }
+        }
+        return b;
+    }
 
     public void setActivoPiso(int piso, boolean b) {
         listaPisos[piso].setActivo(b);
@@ -73,5 +119,19 @@ public class AscensorLogica {
 
     public int getEstadoAscensor() {
         return estadoAscensor;
+    }
+
+    public int getEstadoPiso(int i) {
+        int estatus = 0;
+        estatus = listaPisos[i].getSolicitudDePiso();
+        return estatus;
+    }
+    
+    public int getPersonasEsperandoPiso(int i){
+        return listaPisos[i].getPersonasEsperando();
+    }
+    
+    public void setSolicitudPiso(int piso,int solicitud, int personas, int destinoPersonas[]){
+        listaPisos[piso].solicitudPiso(solicitud, personas, destinoPersonas);
     }
 }

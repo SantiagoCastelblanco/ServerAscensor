@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SocketServidor {
+public class SocketServidor extends Thread{
 
     //Manejadores del socket
     private ServerSocket servidor;
@@ -25,6 +25,7 @@ public class SocketServidor {
     //Constructor de la clase, el id hace referencia a cual piso es determinado
     public SocketServidor() {
         activo = false;
+        System.out.println("Servidor iniciado");
         listaPisos = new SocketPiso[AscensorLogica.NUM_PISOS];
         try {
             servidor = new ServerSocket(puerto);
@@ -32,9 +33,18 @@ public class SocketServidor {
             Logger.getLogger(SocketServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void run(){
+        while(activo){
+            try {
+                escucharCliente();
+            } catch (IOException ex) {
+                Logger.getLogger(SocketServidor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     public void escucharCliente() throws IOException {
-        System.out.println("Servidor iniciado");
         if (activo) {
             //Espera de conexion
             System.out.println("esperando conexion...");
@@ -45,15 +55,14 @@ public class SocketServidor {
             System.out.println("Se ha conectado " + cliente.getInetAddress().getHostAddress() + "\n Confirmando piso");
             DataInputStream dataEntrada = new DataInputStream(sp.getDatosEntrada());
 
-            byte mensaje = dataEntrada.readByte();
-            int identificador = mensaje;
+            int identificador = dataEntrada.readByte();
             System.out.println("Identificador para piso " + identificador + " aceptado");
             if (identificador > 0 && identificador < 10) {
                 if (listaPisos[identificador] != null) {
 
                 } else {
                     listaPisos[identificador] = sp;
-                    listaPisos[identificador].run();
+                    listaPisos[identificador].start();
                 }
             } else {
                 System.out.println("Identificador de piso incorrecta");
@@ -68,6 +77,16 @@ public class SocketServidor {
             estado = listaPisos[piso].getEstadoSocket();
         }
         return estado;
+    }
+    
+    public int getMensajeSocketPiso(int piso){
+        int mensaje = 0;
+        mensaje = listaPisos[piso].getEstadoMensaje();
+        return mensaje;
+    }
+    public int[] getArregloMensajeSocket(int piso){
+        int lista[] = listaPisos[piso].getArregloLocal();
+        return lista;
     }
 
     public boolean todosSocketsConectados() {
@@ -84,5 +103,9 @@ public class SocketServidor {
             }
         }
         return b;
+    }
+
+    public int getPersonasPiso(int i) {
+        return listaPisos[i].getPersonasLocal();
     }
 }

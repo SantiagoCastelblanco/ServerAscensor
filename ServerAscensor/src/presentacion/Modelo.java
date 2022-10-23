@@ -32,6 +32,7 @@ public class Modelo implements Runnable {
         getVentana().setVisible(true);
         getVentana().setResizable(false);
         getServidorSocket().setActivo(true);
+        getServidorSocket().start();
         run();
     }
 
@@ -46,52 +47,53 @@ public class Modelo implements Runnable {
     public void run() {
         boolean activo = true;
         while (activo) {
-            //Siempre escuchamos primero al servidor en caso de que se conecte un nuevo usuario
-            if (!getServidorSocket().todosSocketsConectados()) {
-                try {
-                    getServidorSocket().escucharCliente();
-                } catch (IOException ex) {
-                    if (ex instanceof SocketTimeoutException) {
-                        System.out.println("50 segundos pasaron");
-                    } else {
-                        Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+            /*
+            Chequeo de cada piso
+            */
+            int pisoActualAscensor = getAppAscensor().getPisoActual();
+            for (int i = 0; i < AscensorLogica.NUM_PISOS; i++) {
+                int estado = getServidorSocket().getEstadoSocketPiso(i);
+                //Revision de cada socket de piso
+                switch (estado) {
+                    //No existe
+                    case -1 -> {
+                        if (getAppAscensor().getActivoPiso(i)) {
+                            getAppAscensor().setActivoPiso(i, false);
+                            getVentana().cambiarEstadoLblPiso(i, false);
+                            getVentana().cambiarIconoLblPisos(i, "inactive");
+                        }
+                    }
+                    //Existe sin modificaciones
+                    case 0 -> {
+                        if (!getAppAscensor().getActivoPiso(i)) {
+                            getAppAscensor().setActivoPiso(i, true);
+                            getVentana().cambiarEstadoLblPiso(i, true); 
+                        }
+                    }
+                    //Existe con datos
+                    case 1 -> {
+                        if(getAppAscensor().getEstadoPiso(i)==0){
+                            
+                            int estadoEntrada = getServidorSocket().getEstadoSocketPiso(i);
+                            int personasEntrada = getServidorSocket().getPersonasPiso(i);
+                            int arregloMensaje[] = getServidorSocket().getArregloMensajeSocket(i);
+                            getAppAscensor().setSolicitudPiso(i, estadoEntrada, personasEntrada, arregloMensaje);
+                            System.out.println("Piso "+i+"\nSolicita: "+getAppAscensor().getEstadoPiso(i)+"\nCon personas: "+getAppAscensor().getPersonasEsperandoPiso(i));
+                            getVentana().cambiarEstadoLblPiso(i, true);
+                            getVentana().cambiarIconoLblPisos(i, "update");
+                        }
+                        
+                    }
+                    //Existe recien crado
+                    case 2 -> {
+                        if (!getAppAscensor().getActivoPiso(i)) {
+                            getAppAscensor().setActivoPiso(i, true);
+                            getVentana().cambiarEstadoLblPiso(i, true);
+                            getVentana().cambiarIconoLblPisos(i, "active");
+                        }
                     }
                 }
             }
-            //Obtiene los estados del socket
-            for (int i = 0; i < AscensorLogica.NUM_PISOS; i++) {
-                int estado = getServidorSocket().getEstadoSocketPiso(i);
-                System.out.println("estado " + estado);
-                switch (estado) {
-                    //no existe
-                    case -1:
-                        if (getAppAscensor().getActivoPiso(i)) {
-                            getAppAscensor().setActivoPiso(i, false);
-                            getVentana().pisoHabilitado(i, false);
-                        }
-                        break;
-
-                    //Existe, sin notificaciones
-                    case 0:
-                        if (!getAppAscensor().getActivoPiso(i)) {
-                            getAppAscensor().setActivoPiso(i, true);
-                            getVentana().pisoHabilitado(i, true);
-                        }
-                        break;
-                    //Hay notificaciones
-                    case 1:
-                        break;
-                    //Existe, recien crado
-                    case 2:
-                        if (!getAppAscensor().getActivoPiso(i)) {
-                            getAppAscensor().setActivoPiso(i, true);
-                            getVentana().pisoHabilitado(i, true);
-                        }
-                        break;
-                }
-            }
-            
-            
         }
     }
 }
