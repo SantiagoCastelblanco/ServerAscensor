@@ -4,11 +4,12 @@ package presentacion;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import logica.AscensorLogica;
 
 public class Vista extends javax.swing.JFrame {
 
     private final Modelo modelo;
-    private final int NUM_PISOS = 10;
+    private final int NUM_PISOS = AscensorLogica.NUM_PISOS;
     private final int PISOS_SUBTERRANEOS = 3;
     
     Vista(Modelo aThis) {
@@ -32,7 +33,8 @@ public class Vista extends javax.swing.JFrame {
         lblInfoCapacidad = new javax.swing.JLabel();
         lblOcupantes = new javax.swing.JLabel();
         lblCapacidad = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblInfoCarga = new javax.swing.JLabel();
+        lblCarga = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,7 +63,7 @@ public class Vista extends javax.swing.JFrame {
         pnlPisos.setLayout(pnlPisosLayout);
         pnlPisosLayout.setHorizontalGroup(
             pnlPisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         pnlPisosLayout.setVerticalGroup(
             pnlPisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,7 +71,7 @@ public class Vista extends javax.swing.JFrame {
         );
 
         pnlPrincipal.add(pnlPisos);
-        pnlPisos.setBounds(80, 100, 120, 600);
+        pnlPisos.setBounds(80, 100, 180, 600);
 
         lblInfoEstados.setFont(new java.awt.Font("Arial Rounded MT Bold", 2, 14)); // NOI18N
         lblInfoEstados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -88,7 +90,10 @@ public class Vista extends javax.swing.JFrame {
         lblCapacidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCapacidad.setText("N");
 
-        jLabel2.setText("jLabel2");
+        lblInfoCarga.setText("CARGA ACTUAL:");
+
+        lblCarga.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCarga.setText("N");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,13 +102,13 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblInfoOcupantes, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblOcupantes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lblInfoOcupantes, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInfoCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblOcupantes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(258, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -120,9 +125,11 @@ public class Vista extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInfoOcupantes, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblOcupantes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInfoCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(200, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(32, 32, 32)
@@ -145,10 +152,11 @@ public class Vista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCapacidad;
+    private javax.swing.JLabel lblCarga;
     private javax.swing.JLabel lblInfoCapacidad;
+    private javax.swing.JLabel lblInfoCarga;
     private javax.swing.JLabel lblInfoEstados;
     private javax.swing.JLabel lblInfoOcupantes;
     private javax.swing.JLabel lblInfoPiso;
@@ -159,17 +167,26 @@ public class Vista extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private JLabel lblPisos[];
     private JLabel lblEstadoPisos[];
+    private JLabel lblUbicacionAeP[];
     
     private void creacionLblPisos(){
         lblPisos = new JLabel[NUM_PISOS];
         lblEstadoPisos = new JLabel[NUM_PISOS];
-        
+        lblUbicacionAeP = new JLabel[NUM_PISOS];
         int y = 0;
         int x;
         int dimension = 60;
         for(int i=NUM_PISOS-1;i>=0;i--){
             x = 0;
+            
+            //Creacion de los labels de la ubicacion del ascensor en los pisos
+            lblUbicacionAeP[i] = new JLabel();
+            pnlPisos.add(lblUbicacionAeP[i]);
+            lblUbicacionAeP[i].setBackground(new java.awt.Color(255, 255, 255));
+            lblUbicacionAeP[i].setBounds(x, y, dimension, dimension);
+            lblUbicacionAeP[i].setOpaque(true);
             //Creacion de los labels
+            x+=dimension;
             lblPisos[i] = new JLabel();
             pnlPisos.add(lblPisos[i]);
             lblPisos[i].setBackground(new java.awt.Color(255,51,51));
@@ -193,8 +210,14 @@ public class Vista extends javax.swing.JFrame {
             lblEstadoPisos[i].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/inactive-icon.jpg")).getImage().getScaledInstance(lblEstadoPisos[i].getWidth(), lblEstadoPisos[i].getHeight(), Image.SCALE_DEFAULT)));
             lblEstadoPisos[i].setOpaque(true);
             y+=dimension;
-            
         }
+    }
+    
+    public void iconoUbicacionAscensor(int piso){
+        for (int i = 0; i < NUM_PISOS; i++) {
+            lblUbicacionAeP[i].setIcon(null);
+        }
+        lblUbicacionAeP[piso].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/elevator-icon.jpg")).getImage().getScaledInstance(lblUbicacionAeP[piso].getWidth(), lblUbicacionAeP[piso].getHeight(), Image.SCALE_DEFAULT)));
     }
     
     public void cambiarEstadoLblPiso(int piso, boolean habilitado){
@@ -213,4 +236,15 @@ public class Vista extends javax.swing.JFrame {
         lblEstadoPisos[piso].setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/presentacion/icons/"+nombre+"-icon.jpg")).getImage().getScaledInstance(lblEstadoPisos[piso].getWidth(), lblEstadoPisos[piso].getHeight(), Image.SCALE_DEFAULT)));
     }
     
+    public void actualizarLblCapacidad(float capacidad){
+        lblCapacidad.setText(Float.toString(capacidad));
+    }
+    
+    public void actualizarLblCarga(float carga){
+        lblCarga.setText(Float.toString(carga));
+    }
+    
+    public void actualizarLblPersonas(int personas){
+        lblOcupantes.setText(Integer.toString(personas));
+    }
 }

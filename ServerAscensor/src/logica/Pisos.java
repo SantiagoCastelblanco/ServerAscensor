@@ -42,6 +42,7 @@ public class Pisos {
             if (destinoPersonasNoAceptadas == null) {
                 Arrays.fill(destinoPersonasSubiendo, 0);
             } else {
+                
                 destinoPersonasSubiendo = destinoPersonasNoAceptadas;
             }
         } else if (estadoDescarga == -1) {
@@ -51,7 +52,20 @@ public class Pisos {
                 destinoPersonasBajando = destinoPersonasNoAceptadas;
             }
         } else {
-            System.out.println("Error en la solicitud");
+            System.out.println("Error en la descarga de personas");
+        }
+        boolean vacio=true;
+        for (int i = 0; i < AscensorLogica.NUM_PISOS; i++) {
+            if(destinoPersonasNoAceptadas[i]!=0){
+                vacio=false;
+            }
+        }
+        if(vacio){
+            if (estadoDescarga == 1) {
+                solicitaSubida = false;
+            } else {
+                solicitaBajada = false;
+            }
         }
     }
 

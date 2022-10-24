@@ -34,6 +34,10 @@ public class SocketServidor extends Thread{
         }
     }
     
+    /**
+     *Iniciacion del hilo unico encargado del servidor
+     */
+    @Override
     public void run(){
         while(activo){
             try {
@@ -48,16 +52,16 @@ public class SocketServidor extends Thread{
         if (activo) {
             //Espera de conexion
             System.out.println("esperando conexion...");
-            servidor.setSoTimeout(50000);
+            //servidor.setSoTimeout(50000);
             cliente = servidor.accept();
             SocketPiso sp = new SocketPiso(cliente);
-            //logica para agregacion al vector
+            //logica para agregacion al arreglo
             System.out.println("Se ha conectado " + cliente.getInetAddress().getHostAddress() + "\n Confirmando piso");
             DataInputStream dataEntrada = new DataInputStream(sp.getDatosEntrada());
 
             int identificador = dataEntrada.readByte();
             System.out.println("Identificador para piso " + identificador + " aceptado");
-            if (identificador > 0 && identificador < 10) {
+            if (identificador >= 0 && identificador < 10) {
                 if (listaPisos[identificador] != null) {
 
                 } else {
@@ -70,7 +74,7 @@ public class SocketServidor extends Thread{
 
         }
     }
-
+    
     public int getEstadoSocketPiso(int piso) {
         int estado = -1;
         if (listaPisos[piso] != null) {
@@ -80,7 +84,7 @@ public class SocketServidor extends Thread{
     }
     
     public int getMensajeSocketPiso(int piso){
-        int mensaje = 0;
+        int mensaje;
         mensaje = listaPisos[piso].getEstadoMensaje();
         return mensaje;
     }
@@ -107,5 +111,9 @@ public class SocketServidor extends Thread{
 
     public int getPersonasPiso(int i) {
         return listaPisos[i].getPersonasLocal();
+    }
+
+    public void confirmarMensajeRecibido(int i) {
+        listaPisos[i].mensajeLeido();
     }
 }

@@ -14,6 +14,7 @@ public class SocketPiso extends Thread {
     private final DataOutputStream datosSalida;
     private String mensajeLlegada;
     private boolean recienCreado;
+    private boolean nuevoMensaje;
 
     private final byte mensaje[];
     private int arregloLocal[];
@@ -54,6 +55,10 @@ public class SocketPiso extends Thread {
     public int[] getArregloLocal() {
         return arregloLocal;
     }
+    
+    public void mensajeLeido(){
+        nuevoMensaje = false;
+    }
 
     public boolean hayNuevoMensaje() {
         boolean b = false;
@@ -66,6 +71,7 @@ public class SocketPiso extends Thread {
             if (ex instanceof java.io.EOFException) {
                 try {
                     //El error era esperado
+                    estadoMensaje =0;
                     sleep(500);
                 } catch (InterruptedException ex1) {
                     Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex1);
@@ -74,7 +80,7 @@ public class SocketPiso extends Thread {
                 Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        nuevoMensaje = b;
         return b;
 
     }
@@ -131,7 +137,7 @@ public class SocketPiso extends Thread {
         if (recienCreado) {
             estado = 2;
             recienCreado = false;
-        } else if (mensaje.length != 0) {
+        } else if (nuevoMensaje) {
             estado = 1;
         }
 
