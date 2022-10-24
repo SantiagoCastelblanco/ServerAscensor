@@ -58,7 +58,7 @@ public class Modelo implements Runnable {
             //Actualizamos el ascensor
             if(!actualizadoAscensor){
                 int segundosPasados = segundosPasadosDesdeInicio();
-                if(segundosPasados%1==0&&segundoUltimaAct != segundosPasados){
+                if(segundosPasados%5==0&&segundoUltimaAct != segundosPasados){
                     segundoUltimaAct = segundosPasados;
                     actualizadoAscensor = true;
                     //Representamos la ubicacion actual del ascensor
@@ -66,6 +66,7 @@ public class Modelo implements Runnable {
                     getVentana().iconoUbicacionAscensor(pisoActualAscensor);
                     getVentana().actualizarLblCarga(getAppAscensor().getCarga());
                     getVentana().actualizarLblPersonas(getAppAscensor().getPersonasDentro());
+                    getServidorSocket().enviarDatosSocket(pisoActualAscensor, getAppAscensor().getEstadoAscensor());
                     if(getAppAscensor().dejaPersonasPisoActual()){
                         System.out.println("Dejando personas "+pisoActualAscensor);
                     }

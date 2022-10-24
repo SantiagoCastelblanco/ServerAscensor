@@ -158,6 +158,8 @@ public class SocketPiso extends Thread {
             datosSalida.writeBoolean(true);
             datosSalida.write(pisoActual);
             datosSalida.write(estadoAscensor);
+            datosSalida.flush();
+            System.out.println("Enviando datos al socket");
         } catch (IOException ex) {
             Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex);
         }
