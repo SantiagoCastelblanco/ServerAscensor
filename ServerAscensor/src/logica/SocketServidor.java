@@ -34,6 +34,14 @@ public class SocketServidor extends Thread{
         }
     }
     
+    public void enviarDatosSocket(int pisoActual,int estadoAscensor){
+        for (int i = 0; i < AscensorLogica.NUM_PISOS; i++) {
+            if(listaPisos[i]!=null){
+                listaPisos[i].enviarDatosAscensor(pisoActual, estadoAscensor);
+            }
+        }
+    }
+    
     /**
      *Iniciacion del hilo unico encargado del servidor
      */

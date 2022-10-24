@@ -73,6 +73,7 @@ public class Modelo implements Runnable {
                         System.out.println("Regoiendo personas "+pisoActualAscensor);
                     }
                     
+                    
                     int estadoAscensor = getAppAscensor().getEstadoAscensor();
                     //establecemos la nueva ubicación del ascensor
                     switch(estadoAscensor){

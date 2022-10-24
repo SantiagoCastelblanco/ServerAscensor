@@ -76,7 +76,15 @@ public class SocketPiso extends Thread {
                 } catch (InterruptedException ex1) {
                     Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex1);
                 }
-            } else {
+            }
+            else if(ex instanceof java.net.SocketException){
+                try {
+                    desconectar();
+                } catch (IOException ex1) {
+                    Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+            else {
                 Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -142,5 +150,16 @@ public class SocketPiso extends Thread {
         }
 
         return estado;
+    }
+    
+    public void enviarDatosAscensor(int pisoActual, int estadoAscensor){
+        try {
+            //Confirmamos que es un mensaje
+            datosSalida.writeBoolean(true);
+            datosSalida.write(pisoActual);
+            datosSalida.write(estadoAscensor);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketPiso.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
